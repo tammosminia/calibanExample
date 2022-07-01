@@ -1,19 +1,9 @@
-import caliban.schema.Schema
+import Cat.Tail
 
-case class Cat(name: String)
+case class Cat(name: String, color: Cat.Color, tail: Tail)
 
 object Cat {
+  case class Color(s: String) extends AnyVal
 
-  import ApiSchema._
-
-  //  import caliban.schema.Schema._
-
-  implicit val gqlSchema: Schema[Any, Cat] = obj[Any, Cat]("Cat")(
-    implicit ft =>
-      List(
-        field("name")(_.name),
-        field("speed")(_.name.length)
-      )
-  )
-
+  case class Tail(color: Color)
 }
