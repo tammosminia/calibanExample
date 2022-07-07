@@ -1,3 +1,4 @@
+import CalibanUtils.SchemaFunctions
 import Cat.Color
 import caliban.Value.StringValue
 import caliban.schema.{GenericSchema, Schema}
@@ -12,10 +13,10 @@ object ApiSchema extends GenericSchema[CatRepo] {
       List(
         fieldWithArgs("name")(cat => shortName(cat.name)),
         field("color")(_.color),
-        field("tail")(_.tail),
+        field("pattern")(_.pattern),
         field("speed")(cat => CatRepo.getSpeed(cat.name))
       )
-  )
+  ).addDescription("The cat sits on the mat")
   implicit val queriesSchema: Schema[CatRepo, Queries] = obj[CatRepo, Queries]("Queries", Some("manually made queries"))(
     implicit ft =>
       List(

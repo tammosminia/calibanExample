@@ -1,9 +1,9 @@
-import Cat.{Color, Tail}
+import Cat.{Color, Pattern}
 import zio.{RIO, Task, UIO, ZIO}
 
 class CatRepo {
   //in memory database of cats. not threadsafe or reasonable
-  var catDb: List[Cat] = List(Cat("Koffie", Color("grey"), Tail(Color("black"))), Cat("Minoes", Color("brown"), Tail(Color("White"))))
+  var catDb: List[Cat] = List(Cat("Koffie", Color("grey"), Pattern.Stripes), Cat("Minoes", Color("brown"), Pattern.Plain))
 
   def getAllCats: Task[List[Cat]] = ZIO.succeed(catDb)
 

@@ -5,6 +5,7 @@ lazy val zioVersion = "2.0.0-RC2"
 lazy val akkaHttpVersion = "10.2.7"
 lazy val akkaVersion = "2.6.18"
 lazy val scalaTestVersion = "3.1.2"
+lazy val enumeratumVersion = "1.7.0"
 
 lazy val graphQlDeps = Seq(
   "com.github.ghostdogpr" %% "caliban" % calibanVersion,
@@ -25,8 +26,10 @@ lazy val akkaDeps = Seq(
 //  "com.softwaremill.sttp.client3" %% "akka-http-backend" % "3.3.13"
 //)
 
-lazy val logDeps = Seq(
-  "ch.qos.logback" % "logback-classic" % "1.2.11"
+lazy val otherDeps = Seq(
+  "ch.qos.logback" % "logback-classic" % "1.2.11",
+  "com.beachape"      %% "enumeratum"           % enumeratumVersion,
+
 )
 
 lazy val root = (project in file("."))
@@ -40,7 +43,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       akkaDeps,
       graphQlDeps,
-      logDeps
+      otherDeps
     ).flatten,
     scalacOptions ++= Seq(
       "-language:postfixOps",
