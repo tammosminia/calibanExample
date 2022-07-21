@@ -13,10 +13,13 @@ class Api {
 
   def createInterpreter: ZIO[CatRepo, CalibanError.ValidationError, GraphQLInterpreter[CatRepo, CalibanError]] = {
     import ApiSchema._
-    GraphQL.graphQL[CatRepo, Queries, Unit, Unit](
+    GraphQL.graphQL[CatRepo, Queries, Mutations, Unit](
       RootResolver(
         Queries(
           _ => CatRepo.getAllCats
+        ),
+        Mutations(
+          CatRepo.addCat
         )
       )
     ).interpreter
