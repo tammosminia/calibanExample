@@ -16,7 +16,7 @@ class Api {
     GraphQL.graphQL[CatRepo, Queries, Mutations, Unit](
       RootResolver(
         Queries(
-          _ => CatRepo.getAllCats
+          () => CatRepo.getAllCats
         ),
         Mutations(
           CatRepo.addCat
