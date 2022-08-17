@@ -7,7 +7,9 @@ class CatRepo {
 
   def getAllCats: Task[List[Cat]] = ZIO.succeed(catDb)
 
-  def getSpeed(name: String): UIO[Int] = ZIO.succeed(name.length)
+  def similar(cat: Cat): Task[List[Cat]] = Task {
+    catDb.filter(x => x != cat && x.color == cat.color)
+  }
 
   def addCat(cat: Cat): Task[Cat] = Task {
     catDb = cat :: catDb
@@ -19,7 +21,7 @@ class CatRepo {
 object CatRepo {
   def getAllCats: RIO[CatRepo, List[Cat]] = ZIO.environmentWithZIO[CatRepo](_.get.getAllCats)
 
-  def getSpeed(name: String): RIO[CatRepo, Int] = ZIO.environmentWithZIO[CatRepo](_.get.getSpeed(name))
+  def similar(cat: Cat): RIO[CatRepo, List[Cat]] = ZIO.environmentWithZIO[CatRepo](_.get.similar(cat))
 
   def addCat(cat: Cat): RIO[CatRepo, Cat] = ZIO.environmentWithZIO[CatRepo](_.get.addCat(cat))
 }

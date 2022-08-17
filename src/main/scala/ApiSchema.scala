@@ -14,13 +14,7 @@ object ApiSchema extends GenericSchema[CatRepo] {
         fieldWithArgs("name")(cat => shortName(cat.name)),
         field("color")(_.color),
         field("pattern")(_.pattern),
-        field("speed")(cat => CatRepo.getSpeed(cat.name))
+        field("similar")(cat => CatRepo.similar(cat))
       )
-  ).addDescription("The cat sits on the mat")
-  implicit val queriesSchema: Schema[CatRepo, Queries] = obj[CatRepo, Queries]("Queries", Some("manually made queries"))(
-    implicit ft =>
-      List(
-        field[Queries]("cats")(_.cats)
-      )
-  )
+  ) //.addDescription("The cat sits on the mat")
 }
